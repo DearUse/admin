@@ -210,6 +210,11 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
@@ -220,12 +225,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521032374843</updated>
-      <workItem from="1521032376543" duration="76000" />
+      <workItem from="1521032376543" duration="145000" />
     </task>
+    <task id="LOCAL-00001" summary="初始版本">
+      <created>1521032516190</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1521032516190</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76000" />
+    <option name="totallyTimeSpent" value="145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="137" width="1400" height="1000" extended-state="0" />
@@ -254,6 +267,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="初始版本" />
+    <option name="LAST_COMMIT_MESSAGE" value="初始版本" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
