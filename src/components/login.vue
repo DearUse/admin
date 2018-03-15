@@ -59,23 +59,7 @@ export default {
 	    },
       submitForm() {
       	
-//      this.$refs[formName].validate((valid) => {
-//        if (valid) {
-//          this.logining = true;
-//          setTimeout(() => {
-//            this.logining = false;
-//          //如果请求成功就让他3秒跳转路由
-//          }, 2000);
-//        } else {
-//          this.$ruleForm.error({
-//            title: '错误',
-//            message: '请输入正确的用户名密码',
-//            offset: 100
-//          });
-//          console.log('error submit!!');
-//          return false;
-//        }
-//      });
+
 		var that = this;
 		console.log(this.ruleForm.username);
 		console.log(this.ruleForm.password);

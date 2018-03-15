@@ -10,20 +10,21 @@
 				<li class="a" @click="ff" :class="{on:fs}">品牌</li>
 			</ul>
 		</div>
-		
+
 		<!--系列-->
 		<div class="b" v-show="as">
 			<div>
 				<el-button @click="add">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData3" height="700" border style="width: 100%" >
-							<el-table-column prop="name" label="系列" width="180">
+						<el-table :data="tableData3" height="700" border style="width: 100%">
+							<el-table-column prop="serial" label="系列" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData3">
-									<el-button type="text" size="small" @click.native.prevent="addsp(scope.$index, tableData3)">编辑</el-button>
-									<el-button @click.native.prevent="psdda(scope.$index, tableData3)" type="text" size="small">移除</el-button>
+								<template slot-scope="scope">
+									<!--scope是作用域 scope.row 是当前行{{scope.row}}-->
+									<el-button type="text" size="small" @click.native.prevent="addsp(scope.row.id, tableData3)">编辑</el-button>
+									<el-button @click.native.prevent="psdda(scope.row.id, tableData3)" type="text" size="small">移除</el-button>
 								</template>
 							</el-table-column>
 						</el-table>
@@ -38,7 +39,7 @@
 				</div>
 				<el-form :inline="true" :model="formInline" class="demo-form-inline">
 					<el-form-item label="系列" class="labe">
-						<el-input v-model="formInline.name" placeholder="系列"></el-input>
+						<el-input v-model="formInline.serial" placeholder="系列"></el-input>
 					</el-form-item>
 					<div style="float: right;margin-right:100px;margin-top: 20px;">
 						<el-button type="primary" style="width: 100px;" @click="adds">取消</el-button>
@@ -46,14 +47,14 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
 				</div>
 				<el-form :inline="true" :model="formInline" class="demo-form-inline">
 					<el-form-item label="系列" class="labe">
-						<el-input v-model="formInline.name" placeholder="系列"></el-input>
+						<el-input v-model="formInline.serial" placeholder="系列"></el-input>
 					</el-form-item>
 					<div style="float: right;margin-right:100px;margin-top: 20px;">
 						<el-button type="primary" style="width: 100px;" @click="adds">取消</el-button>
@@ -62,18 +63,18 @@
 				</el-form>
 			</div>
 		</div>
-		
+
 		<!--型号-->
 		<div class="b" v-show="bs">
 			<div>
 				<el-button @click="add1">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData4" height="700" border style="width: 100%" >
+						<el-table :data="tableData4" height="700" border style="width: 100%">
 							<el-table-column prop="name" label="型号" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData4">
+								<template slot-scope="scope" v-for="(item,index) in tableData4">
 									<el-button type="text" size="small" @click.native.prevent="addsp1(scope.$index, tableData4)">编辑</el-button>
 									<el-button @click.native.prevent="psdda(scope.$index, tableData4)" type="text" size="small">移除</el-button>
 								</template>
@@ -98,7 +99,7 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
@@ -114,18 +115,18 @@
 				</el-form>
 			</div>
 		</div>
-		
+
 		<!--颜色-->
 		<div class="b" v-show="cs">
 			<div>
 				<el-button @click="add2">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData5" height="700" border style="width: 100%" >
+						<el-table :data="tableData5" height="700" border style="width: 100%">
 							<el-table-column prop="name" label="颜色" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData5">
+								<template slot-scope="scope" v-for="(item,index) in tableData5">
 									<el-button type="text" size="small" @click.native.prevent="addsp2(scope.$index, tableData5)">编辑</el-button>
 									<el-button @click.native.prevent="psdda(scope.$index, tableData5)" type="text" size="small">移除</el-button>
 								</template>
@@ -150,7 +151,7 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
@@ -166,18 +167,18 @@
 				</el-form>
 			</div>
 		</div>
-		
+
 		<!--工艺-->
 		<div class="b" v-show="ds">
 			<div>
 				<el-button @click="add3">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData6" height="700" border style="width: 100%" >
+						<el-table :data="tableData6" height="700" border style="width: 100%">
 							<el-table-column prop="name" label="工艺" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData6">
+								<template slot-scope="scope" v-for="(item,index) in tableData6">
 									<el-button type="text" size="small" @click.native.prevent="addsp3(scope.$index, tableData6)">编辑</el-button>
 									<el-button @click.native.prevent="psdda(scope.$index, tableData6)" type="text" size="small">移除</el-button>
 								</template>
@@ -202,7 +203,7 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
@@ -218,18 +219,18 @@
 				</el-form>
 			</div>
 		</div>
-		
+
 		<!--线条-->
 		<div class="b" v-show="es">
 			<div>
 				<el-button @click="add4">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData7" height="700" border style="width: 100%" >
+						<el-table :data="tableData7" height="700" border style="width: 100%">
 							<el-table-column prop="name" label="线条" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData7">
+								<template slot-scope="scope" v-for="(item,index) in tableData7">
 									<el-button type="text" size="small" @click.native.prevent="addsp4(scope.$index, tableData7)">编辑</el-button>
 									<el-button @click.native.prevent="psdda(scope.$index, tableData7)" type="text" size="small">移除</el-button>
 								</template>
@@ -254,7 +255,7 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
@@ -270,18 +271,18 @@
 				</el-form>
 			</div>
 		</div>
-		
+
 		<!--品牌-->
 		<div class="b" v-show="fs">
 			<div>
 				<el-button @click="add5">添加</el-button>
 				<div style="margin-top: 10px;">
 					<div>
-						<el-table :data="tableData8" height="700" border style="width: 100%" >
+						<el-table :data="tableData8" height="700" border style="width: 100%">
 							<el-table-column prop="name" label="线条" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
-								<template slot-scope="scope"  v-for="(item,index) in tableData8">
+								<template slot-scope="scope" v-for="(item,index) in tableData8">
 									<el-button type="text" size="small" @click.native.prevent="addsp5(scope.$index, tableData8)">编辑</el-button>
 									<el-button @click.native.prevent="psdda(scope.$index, tableData8)" type="text" size="small">移除</el-button>
 								</template>
@@ -306,7 +307,7 @@
 					</div>
 				</el-form>
 			</div>
-		
+
 			<div class="add" v-show="isshows" style="width: 961px !important;">
 				<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 					修改
@@ -328,23 +329,24 @@
 <script type="text/ecmascript-6">
 	import Vue from 'vue';
 	import 'element-ui/lib/theme-default/index.css';
-	import { VTable, VPagination } from 'vue-easytable'
+	import { VTable, VPagination } from 'vue-easytable';
+	import { Message } from '../../common/js/services/Message.services';
 	import axios from 'axios';
 	export default {
 		data() {
 			return {
-				as:true,
-				bs:false,
-				cs:false,
-				ds:false,
-				es:false,
-				fs:false,
+				as: true,
+				bs: false,
+				cs: false,
+				ds: false,
+				es: false,
+				fs: false,
 				isshow: false,
 				isshows: false,
 				isshowss: false,
-				saffd:"",
+				saffd: "",
 				formInline: {
-					name: ''
+					serial: ''
 				},
 				formInline1: {
 					name: ''
@@ -361,66 +363,62 @@
 				formInline5: {
 					name: ''
 				},
-//				系列
-				tableData3: [
-					{
-						name:"132456"
-					}
-				],
-				
-//				款式
+				//				系列
+				tableData3: [{
+					
+				}],
+
+				//				款式
 				tableData4: [{
-						name: 'py101 '
-					},{
-						name: 'py102'
-					},{
-						name: 'py103 '
-					},{
-						name: 'py104'
-					},{
-						name: 'py105 '
-					},{
-						name: 'py106'
-					},{
-						name: 'py107 '
-					},{
-						name: 'py108'
-					},{
-						name: 'py1039'
-					}
-				],
-				
-//				颜色
+					name: 'py101 '
+				}, {
+					name: 'py102'
+				}, {
+					name: 'py103 '
+				}, {
+					name: 'py104'
+				}, {
+					name: 'py105 '
+				}, {
+					name: 'py106'
+				}, {
+					name: 'py107 '
+				}, {
+					name: 'py108'
+				}, {
+					name: 'py1039'
+				}],
+
+				//				颜色
 				tableData5: [{
-						name:"黑胡桃浅色"	
-					},{
-						name:"黑胡桃深色"	
-					},{
-						name:"红木浅色"
-					},{
-						name:"红木深色"	
-					},{
-						name:"红樱桃浅色"	
-					},{
-						name:"红樱桃深色"	
-					},{
-						name:"花梨浅色"	
-					},{
-						name:"花梨深色"	
-					},{
-						name:"进口纯白色"	
-					},{
-						name:"进口红樱桃色"	
-					},{
-						name:"进口花梨色"	
-					},{
-						name:"进口沙比利色"	
-					},{
-						name:"柚木深色"	
-					},{
-						name:"柚木浅色"	
-					}
-				],
+					name: "黑胡桃浅色"
+				}, {
+					name: "黑胡桃深色"
+				}, {
+					name: "红木浅色"
+				}, {
+					name: "红木深色"
+				}, {
+					name: "红樱桃浅色"
+				}, {
+					name: "红樱桃深色"
+				}, {
+					name: "花梨浅色"
+				}, {
+					name: "花梨深色"
+				}, {
+					name: "进口纯白色"
+				}, {
+					name: "进口红樱桃色"
+				}, {
+					name: "进口花梨色"
+				}, {
+					name: "进口沙比利色"
+				}, {
+					name: "柚木深色"
+				}, {
+					name: "柚木浅色"
+				}],
 				tableData6: [{
 					name: '張三',
 
@@ -435,80 +433,97 @@
 				}]
 			}
 		},
+		mounted: function() {
+			this.queryProMegs();
+		},
 		methods: {
-			aa:function(){
-				this.as = !this.as,
-				this.bs=false,
-				this.cs=false,
-				this.ds=false,
-				this.es=false,
-				this.fs=false
-			},
-			bb:function(){
-				this.bs = !this.bs,
-				this.as=false,
-				this.cs=false,
-				this.ds=false,
-				this.es=false,
-				this.fs=false
-			},
-			cc:function(){
-				this.cs = !this.cs,
-				this.as=false,
-				this.bs=false,
-				this.ds=false,
-				this.es=false,
-				this.fs=false
-			},
-			dd:function(){
-				this.ds = !this.ds,
-				this.as=false,
-				this.cs=false,
-				this.bs=false,
-				this.es=false,
-				this.fs=false
-			},
-			ee:function(){
-				this.es = !this.es,
-				this.as=false,
-				this.cs=false,
-				this.ds=false,
-				this.bs=false,
-				this.fs=false
-			},
-			ff:function(){
-				this.fs = !this.fs,
-				this.as=false,
-				this.cs=false,
-				this.ds=false,
-				this.bs=false,
-				this.es=false
-			},
-			
-			//保存
-			haoqia: function() {
-				var b = [];
-				b = this.tableData3;
-				b = b.concat(this.formInline);
-				console.log(b);
-
-				this.tableData3 = b;
-				this.formInline = {
-					name: "",
-				};
-				
+			queryProMegs() {
 				var that = this;
 				var params = new URLSearchParams();
-				params.append("serial", 15863497526);
 				params.append("to", 1);
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_show", params).then(function(ret) {
+							console.log(ret.data)
+							if(ret.data.data) {
+								for(var i = 0; i < ret.data.data.length; i++) {
+									console.log(ret.data.data[i].serial)
+									that.tableData3 = ret.data.data
+								}
+							}else{
+								alert(ret.data);
+							}
+							},function(err) {
+								alert("失败");
+
+							})
+					//				console.log('21321huigfhsan')
+					//				let data = {
+					//					to: '1',
+					//				}
+					//				Message.show(this, data, (e) => {
+					//					console.log(e)
+					//
+					//				})
+			},
+
+			aa: function() {
+				this.as = !this.as,
+					this.bs = false,
+					this.cs = false,
+					this.ds = false,
+					this.es = false,
+					this.fs = false
+			},
+			bb: function() {
+				this.bs = !this.bs,
+					this.as = false,
+					this.cs = false,
+					this.ds = false,
+					this.es = false,
+					this.fs = false
+			},
+			cc: function() {
+				this.cs = !this.cs,
+					this.as = false,
+					this.bs = false,
+					this.ds = false,
+					this.es = false,
+					this.fs = false
+			},
+			dd: function() {
+				this.ds = !this.ds,
+					this.as = false,
+					this.cs = false,
+					this.bs = false,
+					this.es = false,
+					this.fs = false
+			},
+			ee: function() {
+				this.es = !this.es,
+					this.as = false,
+					this.cs = false,
+					this.ds = false,
+					this.bs = false,
+					this.fs = false
+			},
+			ff: function() {
+				this.fs = !this.fs,
+					this.as = false,
+					this.cs = false,
+					this.ds = false,
+					this.bs = false,
+					this.es = false
+			},
+
+			//保存
+			haoqia: function() {
+				var that = this;
+				var params = new URLSearchParams();
+				params.append("to", 1);
+				params.append("serial", this.formInline.serial);
 				
-				axios.post("http://192.168.0.233/Mudoor/Muapi/Basicall/serial_show", params).then(function(ret){
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_add", params).then(function(ret){
 					console.log(ret)
 					if(ret.data.code == 200){
-							console.log(ret.data.msg);
-//							var c =ret.data.msg;
-//							that.suzu = c.slice(10);
-//							console.log(that.suzu);
 							alert(123);
 					}else{
 						alert(ret.data);
@@ -517,11 +532,23 @@
 				},function(err){
 					alert("失败");
 					
-				})
-				
-				//关闭窗口 
+				})				
+
 				this.isshow = false;
 				this.isshowss = false;
+				var b = [];
+				b = this.tableData3;
+				b = b.concat(this.formInline);
+				console.log(b);
+
+				this.tableData3 = b;
+
+				
+				this.formInline = {
+					serial: "",
+				};
+				//关闭窗口 
+
 			},
 			haoqia1: function() {
 				var b = [];
@@ -604,149 +631,180 @@
 				this.isshows = false;
 				this.isshowss = false;
 			},
-			
-			
+
 			//添加
 			add() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
 				//清空
-				this.formInline.name ="";
+				this.formInline.name = "";
 			},
 			add1() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
-				this.formInline1.name ="";
+				this.formInline1.name = "";
 			},
 			add2() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
-				this.formInline2.name ="";
+				this.formInline2.name = "";
 			},
 			add3() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
-				this.formInline.name ="";
+				this.formInline.name = "";
 			},
 			add4() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
-				this.formInline4.name ="";
+				this.formInline4.name = "";
 			},
 			add5() {
 				this.isshow = !this.isshow;
 				this.isshowss = !this.isshowss;
-				this.formInline5.name ="";
+				this.formInline5.name = "";
 			},
 			//编辑
-			addsp:function(index){
+			addsp: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData3[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline.name = this.tableData3[this.saffd].name;
 			},
-			addsp1:function(index){
+			addsp1: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData4[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline1.name = this.tableData4[this.saffd].name;
 			},
-			addsp2:function(index){
+			addsp2: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData5[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline2.name = this.tableData5[this.saffd].name;
 			},
-			addsp3:function(index){
+			addsp3: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData6[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline3.name = this.tableData6[this.saffd].name;
 			},
-			addsp4:function(index){
+			addsp4: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData7[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline4.name = this.tableData7[this.saffd].name;
 			},
-			addsp5:function(index){
+			addsp5: function(index) {
 				this.isshows = true;
 				this.isshowss = !this.isshowss;
 				console.log(this.tableData8[index].name);
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				
+
 				this.formInline5.name = this.tableData8[this.saffd].name;
 			},
-			
+
 			//修改
-			haoqias:function(){
+			haoqias: function() {
+				let index = this.saffd; //然后在这里取出  这就是你要哪的id
+				console.log(this.saffd)
+				let data = {
+					to: '1',
+					id: this.index,
+					serial: this.formInline1
+				}
+
+				Message.edit(this, data, (e) => {
+					alert(13)
+					e.data.serial = this.formInline1
+					console.log(e.id);
+				})
+
 				this.tableData3[this.saffd].name = this.formInline.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			haoqias1:function(){
+			haoqias1: function() {
 				this.tableData4[this.saffd].name = this.formInline1.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			haoqias2:function(){
+			haoqias2: function() {
 				this.tableData5[this.saffd].name = this.formInline2.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			haoqias3:function(){
+			haoqias3: function() {
 				this.tableData6[this.saffd].name = this.formInline3.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			haoqias4:function(){
+			haoqias4: function() {
 				this.tableData7[this.saffd].name = this.formInline4.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			haoqias5:function(){
+			haoqias5: function() {
 				this.tableData8[this.saffd].name = this.formInline5.name;
 				this.isshows = false;
-				this.isshowss =!this.isshowss;
+				this.isshowss = !this.isshowss;
 			},
-			
-			psdda:function(index, rows){
-				rows.splice(index, 1);
+
+			psdda: function(index, rows) {
+				var that = this;
+				console.log(this.tableData3[index])
+				var params = new URLSearchParams();
+				params.append("to", 1);
+				params.append("id", this.tableData3[index].id);
+				
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_del", params).then(function(ret){
+					console.log(ret)
+					if(ret.data.code == 200){
+							alert(123);
+							for(var i=0; i<that.tableData3.length; i++){
+								
+								that.tableData3.splice(0,1)
+							}
+					}else{
+						alert(ret.data);
+						
+					}
+				},function(err){
+					alert("失败");
+					
+				})
+			console.log(this.tableData3[index].id);
+
 			},
 		},
-		mounted:function(){
-			
-			
-	  
-		}
 
 	}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-	.a{
+	.a {
 		display: inline-block;
 		width: 90px;
 		text-align: center;
@@ -755,14 +813,17 @@
 		font-size: 14px;
 		cursor: pointer;
 	}
-	.b{
+	
+	.b {
 		margin-top: 25px;
 		clear: both;
 	}
-	.bbdq{
+	
+	.bbdq {
 		position: relative;
 	}
-	.bbqd{
+	
+	.bbqd {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -770,12 +831,13 @@
 		top: 0;
 		left: 0;
 	}
-	.tops:hover{
+	
+	.tops:hover {
 		background: #eef1f6;
 	}
-	.on{
+	
+	.on {
 		color: #20a0ff;
 		background: #FFFFFF;
 	}
-	
 </style>
