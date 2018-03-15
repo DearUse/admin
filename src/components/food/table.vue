@@ -47,7 +47,7 @@
 												<el-button @click.native.prevent="psdda(scope.$index, tableData3)" type="text" size="small">移除</el-button>
 											</template>
 										</el-table-column>
-										
+
 									</el-table>
 								</div>
 							</el-tab-pane>
@@ -88,12 +88,6 @@
 				<el-form-item label="客户名称" class="labe">
 					<el-input v-model="formInline.name" placeholder="客户名称"></el-input>
 				</el-form-item>
-				<!--<el-form-item label="用户名称">
-					<el-select v-model="formInline.username" style="width:185px;" placeholder="用户名称">
-						<el-option label="李某" value="李某"></el-option>
-						<el-option label="刘某" value="刘某"></el-option>
-					</el-select>
-				</el-form-item>-->
 				<el-form-item label="客户电话">
 					<el-input v-model="formInline.customercalls" style="width: 175px !important;" placeholder="客户电话"></el-input>
 				</el-form-item>
@@ -139,7 +133,7 @@
 				</div>
 			</el-form>
 		</div>
-		
+
 		<div class="add" v-show="isshows" style="width: 961px !important;">
 			<div class="kehu" style="width:850px;line-height:42px;color:#333;background-color: #F8F8F8;font-size: 28px;border-bottom: 1px solid #eee;margin-bottom: 20px;">
 				修改客户信息
@@ -201,6 +195,7 @@
 	import Vue from 'vue';
 	import 'element-ui/lib/theme-default/index.css';
 	import { VTable, VPagination } from 'vue-easytable'
+  import {Message} from '../../common/js/services/QueryPeoleList.services'
 	export default {
 		data() {
 			return {
@@ -234,22 +229,6 @@
 					logisaddrds: "", //物流地址
 				}],
 				tableData3: [
-					{
-						name: '張三', //客户名称
-						customercalls: "15828074136", //客户电话
-						specialcustomer: "王麻子", //特殊客户
-						development: "2015年7月", //发展日期
-						customernumber: "909090", //客户编号
-						instructions: "无", //特殊说明
-						salesman: "老刘", //销售员
-						mnemonic: "1552", //助记码
-						brand: "冈本", //品牌
-						address: "四川省成都市金堂縣", //地址
-						packaging: "精装", //包装
-						logistics: "汇丰", //物流名称
-						width: "50", //宽减
-						height: "50" //高减
-					}
 				],
 				options: [{
 					value: 'zhinan',
@@ -449,34 +428,116 @@
 
 			}
 		},
+    mounted(){
+      this.queryCustomer()
+    },
 		methods: {
+      queryCustomer(){
+          const data = {
+            to:window.localStorage.getItem('userId'),
+            strpage:0,
+            endpage:10,
+          };
+        Message.queryList(this,data,(e)=>{
+
+//          this.tableData3 = e.data.data;
+          e.data.map((v,i)=>{
+              console.log(i,'sadds')
+            const arr = 		{
+              name: v.user, //客户名称
+              customercalls: v.phone, //客户电话
+              specialcustomer: v.tuser, //特殊客户
+              development: v.time, //发展日期
+              customernumber: v.number, //客户编号
+              instructions: v.tspone, //特殊说明
+              salesman: v.salem, //销售员
+              mnemonic: v.mnem, //助记码
+              brand: v.brand, //品牌
+              address: v.address, //地址
+              packaging: v.packing, //包装
+              logistics: v.logistic, //物流名称
+              width: v.width, //宽减
+              height: v.height //高减
+            };
+            this.tableData3.push(arr)
+          })
+          console.log(e.data)
+
+
+        })
+      },
 			//保存
 			haoqia: function() {
-				var b = [];
-				b = this.tableData3;
-				b = b.concat(this.formInline);
-				console.log(b);
-				
-				this.tableData3 = b;
-				this.formInline = {
-					name: "",
-					customercalls: "",
-					specialcustomer: "",
-					development: "",
-					customernumber: "",
-					instructions: "",
-					salesman: "",
-					mnemonic: "",
-					brand: "",
-					address: "",
-					packaging: "",
-					logistics: "",
-					width: "",
-					height: ""
-				};
+        if(!this.formInline.name){
+          this.$notify({title: '警告', message: '请填写客户名称',type: 'warning'});
+          return false;
+        }else if(!this.formInline.customercalls){
+          this.$notify({title: '警告', message: '请填写客户电话',type: 'warning'});
+          return false;
+        }else if(!this.formInline.specialcustomer){
+          this.$notify({title: '警告', message: '请填写特殊客户',type: 'warning'});
+          return false;
+        }else if(!this.formInline.development){
+          this.$notify({title: '警告', message: '请填写发展日期',type: 'warning'});
+          return false;
+        }else if(!this.formInline.customernumber){
+          this.$notify({title: '警告', message: '请填写客户编号',type: 'warning'});
+          return false;
+        }else if(!this.formInline.instructions){
+          this.$notify({title: '警告', message: '请填写发展日期',type: 'warning'});
+          return false;
+        }else if(!this.formInline.salesman){
+          this.$notify({title: '警告', message: '请填写特殊说明',type: 'warning'});
+          return false;
+        }else if(!this.formInline.mnemonic){
+          this.$notify({title: '警告', message: '请填写销售员',type: 'warning'});
+          return false;
+        }else if(!this.formInline.brand){
+          this.$notify({title: '警告', message: '请填写助记码',type: 'warning'});
+          return false;
+        }else if(!this.formInline.address){
+          this.$notify({title: '警告', message: '请填写品牌',type: 'warning'});
+          return false;
+        }else if(!this.formInline.packaging){
+          this.$notify({title: '警告', message: '请填写地址',type: 'warning'});
+          return false;
+        }else if(!this.formInline.logistics){
+          this.$notify({title: '警告', message: '请填写包装',type: 'warning'});
+          return false;
+        }else if(!this.formInline.width){
+          this.$notify({title: '警告', message: '请填写宽减',type: 'warning'});
+          return false;
+        }else if(!this.formInline.height){
+          this.$notify({title: '警告', message: '请填写高减',type: 'warning'});
+          return false;
+        }
 
-				
-				//关闭窗口 
+        const data = {
+          to:window.localStorage.getItem('userId'),
+          user: this.formInline.name, //客户名称
+          phone:  this.formInline.customercalls, //客户电话
+          tuser: this.formInline.specialcustomer, //特殊客户
+          time: this.formInline.development, //发展日期
+          number: this.formInline.customernumber, //客户编号
+          tspone: this.formInline.instructions , //特殊说明
+          salem: this.formInline.salesman, //销售员
+          mnem: this.formInline.mnemonic, //助记码
+          brand: this.formInline.brand, //品牌
+          address: this.formInline.address, //地址
+          packing: this.formInline.packaging, //包装
+          logistic: this.formInline.logistics, //物流名称
+          width: this.formInline.width, //宽减
+          height: this.formInline.height //高减
+				};
+        Message.AddPeole(this,data,(e)=>{
+          console.log(e.data)
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          });
+        })
+
+				//关闭窗口
 				this.isshow = false;
 				this.isshowss = false;
 			},
@@ -486,7 +547,7 @@
 				this.isshows = false;
 				this.isshowss = false;
 			},
-			
+
 			onSubmit() {
 				console.log('submit!');
 			},
@@ -539,7 +600,7 @@
 				console.log(index);
 				this.saffd = index;
 				console.log(this.saffd)
-				 
+
 				this.formInline.name = this.tableData3[this.saffd].name;
 				this.formInline.customercalls = this.tableData3[this.saffd].customercalls;
 				this.formInline.specialcustomer = this.tableData3[this.saffd].specialcustomer;
@@ -581,12 +642,6 @@
 
 			}
 		},
-		mounted:function(){
-			
-			
-	  
-			}
-
 	}
 </script>
 
@@ -594,19 +649,19 @@
 	.el-dropdown {
 		vertical-align: top;
 	}
-	
+
 	.el-dropdown+.el-dropdown {
 		margin-left: 15px;
 	}
-	
+
 	.kiy {
 		font-size: 24px;
 	}
-	
+
 	.el-icon-arrow-down {
 		font-size: 12px;
 	}
-	
+
 	.pane {
 		width: 25%;
 		background: #FFFFFF;
@@ -616,7 +671,7 @@
 		top: 27px;
 		left: 30px;
 	}
-	
+
 	.phone {
 		width: 20%;
 		height: 140px;
@@ -624,22 +679,22 @@
 		margin-top: 30px;
 		margin-left: 30px;
 	}
-	
+
 	.demo-table-expand {
 		font-size: 0;
 	}
-	
+
 	.demo-table-expand label {
 		width: 90px;
 		color: #99a9bf;
 	}
-	
+
 	.demo-table-expand .el-form-item {
 		margin-right: 0;
 		margin-bottom: 0;
 		width: 50%;
 	}
-	
+
 	.phones {
 		width: 100%;
 		height: 100px;
@@ -649,63 +704,63 @@
 		text-align: center;
 		background-color: #ff6c60;
 	}
-	
+
 	.times {
 		color: red;
 		display: block;
 		text-align: center;
 		font-size: 18px;
 	}
-	
+
 	.text {
 		font-size: 14px;
 	}
-	
+
 	.item {
 		margin-bottom: 18px;
 	}
-	
+
 	.clearfix:before,
 	.clearfix:after {
 		display: table;
 		content: "";
 	}
-	
+
 	.clearfix:after {
 		clear: both
 	}
-	
+
 	.box-card {
 		width: 480px;
 	}
-	
+
 	.timest {
 		float: right;
 		width: 280px;
 		height: 350px;
 		margin-top: 30px;
 	}
-	
+
 	.timestt {
 		font-size: 24px;
 		display: block;
 		color: #333;
 		margin-bottom: 20px;
 	}
-	
+
 	.cell-edit-color {
 		color: #2db7f5;
 		font-weight: bold;
 	}
-	
+
 	.comm {
 		width: 100%;
 		height: 800px;
 		background-color: #EBEBEB;
 	}
-	
-	
-	
+
+
+
 	.fir {
 		width: 100%;
 		height: 1085px;

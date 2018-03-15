@@ -17,7 +17,6 @@
       response = response.body;
       if (response.errno === ERR_OK) {
          this.seller = response.data;
-         console.log(this.seller);
       }
     });
   }
@@ -27,6 +26,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
 @import "./common/stylus/mixin.styl"
 #app
+  height 100%
   .tab
    display: flex
    width: 100%
@@ -42,4 +42,4 @@
      font-size:14px
     & .active
       color:#f01414
-</style>  
+</style>
