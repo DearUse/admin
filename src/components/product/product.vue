@@ -279,7 +279,9 @@
 				<div style="margin-top: 10px;">
 					<div>
 						<el-table :data="tableData8" height="700" border style="width: 100%">
-							<el-table-column prop="naserialme" label="线条" width="180">
+							<el-table-column prop="brand" label="品牌" width="180">
+							</el-table-column>
+							<el-table-column prop="bei" label="备注" width="180">
 							</el-table-column>
 							<el-table-column label="相关操作" width="154">
 								<template slot-scope="scope" v-for="(item,index) in tableData8">
@@ -298,8 +300,11 @@
 					添加
 				</div>
 				<el-form :inline="true" :model="formInline5" class="demo-form-inline">
-					<el-form-item label="线条" class="labe">
-						<el-input v-model="formInline5.serial" placeholder="线条"></el-input>
+					<el-form-item label="品牌" class="labe">
+						<el-input v-model="formInline5.brand" placeholder="品牌"></el-input>
+					</el-form-item>
+					<el-form-item label="备注" class="labe">
+						<el-input v-model="formInline5.bei" placeholder="备注"></el-input>
 					</el-form-item>
 					<div style="float: right;margin-right:100px;margin-top: 20px;">
 						<el-button type="primary" style="width: 100px;" @click="adds">取消</el-button>
@@ -313,8 +318,11 @@
 					修改
 				</div>
 				<el-form :inline="true" :model="formInline5" class="demo-form-inline">
-					<el-form-item label="线条" class="labe">
-						<el-input v-model="formInline5.serial" placeholder="线条"></el-input>
+					<el-form-item label="品牌" class="labe">
+						<el-input v-model="formInline5.brand" placeholder="品牌"></el-input>
+					</el-form-item>
+					<el-form-item label="备注" class="labe">
+						<el-input v-model="formInline5.bei" placeholder="备注"></el-input>
 					</el-form-item>
 					<div style="float: right;margin-right:100px;margin-top: 20px;">
 						<el-button type="primary" style="width: 100px;" @click="adds">取消</el-button>
@@ -347,6 +355,7 @@
 				dingyi:"",
 				ind:"",
 				names:[],
+				beizhu:"",
 				formInline: {
 					serial:""
 				},
@@ -363,7 +372,8 @@
 					linear:""
 				},
 				formInline5: {
-					serial:""
+					brand:"",
+					bei:""
 				},
 				
 				tableData3: [{
@@ -500,11 +510,11 @@
 				var that = this;
 				var params = new URLSearchParams();
 				params.append("to", 1);
-				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_show", params).then(function(ret) {
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/brand_show", params).then(function(ret) {
 							console.log(ret.data)
 							if(ret.data.data) {
 								for(var i = 0; i < ret.data.data.length; i++) {
-									console.log(ret.data.data[i].serial)
+									console.log(ret.data.data[i].brand)
 									that.tableData8 = ret.data.data;
 								}
 							}else{
@@ -670,7 +680,6 @@
 				var that = this;
 				var params = new URLSearchParams();
 				params.append("to", 1);
-				params.append("id", this.ind);
 				params.append("arts", this.formInline3.arts);
 				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/arts_add", params).then(function(ret){
 					console.log(ret)
@@ -702,7 +711,6 @@
 				var that = this;
 				var params = new URLSearchParams();
 				params.append("to", 1);
-				params.append("id", this.ind);
 				params.append("linear", this.formInline4.linear);
 				
 				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/linear_add", params).then(function(ret){
@@ -733,12 +741,15 @@
 				};
 			},
 			haoqia5: function() {
+				var myDate = new Date();
+				console.log(myDate);
 				var that = this;
 				var params = new URLSearchParams();
 				params.append("to", 1);
-				params.append("serial", this.formInline5.serial);
-				
-				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_add", params).then(function(ret){
+				params.append("brand", this.formInline5.brand);
+				params.append("bei", this.formInline5.bei);
+				params.append("time", this.myDate);
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/brand_add", params).then(function(ret){
 					console.log(ret)
 					if(ret.data.code == 200){
 							alert(123);
@@ -762,7 +773,7 @@
 
 				
 				this.formInline5 = {
-					serial: "",
+					brand: "",
 				};
 			},
 			
@@ -796,7 +807,8 @@
 			},
 			add5() {
 				this.isshow = !this.isshow;
-				this.formInline5.serial = "";
+				this.formInline5.brand = "";
+				this.formInline5.bei = "";
 			},
 			
 			
@@ -868,13 +880,15 @@
 				this.isshow = false;
 				this.isshows = true;
 //				console.log(this.tableData3[index].id);
-				console.log(this.tableData8[index].serial)
+				console.log(this.tableData8[index].brand)
 				this.ind = this.tableData8[index].id;
 				this.names = index;
 				console.log(this.names)
 				
-				this.saffd = this.tableData8[index].serial;
-				this.formInline5.serial = this.saffd
+				this.saffd = this.tableData8[index].brand;
+				this.formInline5.brand = this.saffd;
+				this.beizhu = this.tableData8[index].bei;
+				this.formInline5.bei = this.beizhu;
 			},
 
 			//修改
@@ -1010,17 +1024,22 @@
 				this.isshows = false;
 			},
 			haoqias5: function(index, rows) {
+				var myDate = new Date();
+				console.log(myDate);
 				var that = this;
 				console.log(this.ind)
 				var params = new URLSearchParams();
 				params.append("to", 1);
 				params.append("id", this.ind);
-				params.append("serial",this.formInline5.serial);
-				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_edit", params).then(function(ret){
+				params.append("brand",this.formInline5.brand);
+				params.append("bei",this.formInline5.bei);
+				params.append("time",this.myDate);
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/brand_edit", params).then(function(ret){
 					console.log(ret)
 					if(ret.data.code == 200){
 							alert(123);
-							that.tableData8[that.names].serial = that.formInline5.serial;
+							that.tableData8[that.names].brand = that.formInline5.brand;
+							that.tableData8[that.names].bei = that.formInline5.bei;
 					}else{
 						alert(ret.data);
 						
@@ -1030,7 +1049,8 @@
 					
 				});
 				
-				this.tableData8[this.names].serial = this.formInline5.serial;
+				this.tableData8[this.names].brand = this.formInline5.brand;
+				this.tableData8[this.names].bei = this.formInline5.bei;
 				console.log(this.names);
 				
 				this.isshows = false;
@@ -1153,7 +1173,7 @@
 				params.append("to", 1);
 				params.append("id", this.tableData8[index].id);
 				
-				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/serial_del", params).then(function(ret){
+				axios.post("http://mumen.myhjq.com/index.php/Muapi/Basicall/brand_del", params).then(function(ret){
 					console.log(ret)
 					if(ret.data.code == 200){
 							alert(123);

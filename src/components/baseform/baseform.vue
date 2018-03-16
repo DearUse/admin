@@ -7,7 +7,7 @@
 			</el-tree>
 
 		</div>
-		<div style="margin-top: 20px;margin-left: 200px;" class="content-right" v-show="isshow">
+		<div style="margin-top: 40px;margin-left: 200px;" class="content-right" v-show="isshow">
 			<el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 				
 				<!--变化量-->
